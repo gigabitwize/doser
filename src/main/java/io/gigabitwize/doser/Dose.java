@@ -7,8 +7,9 @@ public class Dose {
 
     private final Modulator modulator;
     private final int applianceDay;
+    private final double startConcentration;
+
     private double concentrationMg;
-    private double startConcentration;
 
     public Dose(Modulator modulator, int applianceDay, double concentrationMg) {
         this.modulator = modulator;
