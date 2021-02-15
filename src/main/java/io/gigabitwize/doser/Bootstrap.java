@@ -17,8 +17,8 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         double halfLifeHrs = 60; // Half-life in hours of the medicine or drug
-        int checkAfterDays = 26; // Amount of days to get serum concentration results for.
-        PanelType panelType = PanelType.PEAK_AND_ELIMINATION; // Type of panel.
+        int checkAfterDays = 70; // Amount of days to get serum concentration results for.
+        PanelType panelType = PanelType.DAILY_CONCENTRATIONS; // Type of panel.
 
         if (halfLifeHrs <= 0) {
             System.err.println("Half-life can't be less than 0.");
@@ -32,24 +32,19 @@ public class Bootstrap {
 
         // Dosing is setup here.
         Modulator modulator = new Modulator(halfLifeHrs)
-                .addDose(1, 10)
-                .addDose(2, 10)
-                .addDose(3, 10)
-                .addDose(4, 10)
-                .addDose(5, 10)
-                .addDose(6, 10)
-                .addDose(7, 10)
-                .addDose(8, 10)
-                .addDose(10, 10)
-                .addDose(11, 10)
-                .addDose(12, 10)
-                .addDose(13, 10)
-                .addDose(14, 10);
+                .addWeeklyDose(1, 10)
+                .addWeeklyDose(2, 10)
+                .addWeeklyDose(3, 10)
+                .addWeeklyDose(4, 10)
+                .addWeeklyDose(5, 15)
+                .addWeeklyDose(6, 15)
+                .addWeeklyDose(7, 15)
+                .addWeeklyDose(8, 15);
 
         switch (panelType) {
             case DAILY_CONCENTRATIONS:
                 StringBuilder stringBuilder = new StringBuilder("[     SERUM CONCENTRATION LEVELS PANEL   ]");
-                stringBuilder.append("Panel type: ").append("DAILY CONCENTRATIONS");
+                stringBuilder.append("\nPanel type: ").append("DAILY CONCENTRATIONS");
                 for (Map.Entry<Integer, Double> entry : modulator.getSerumConcentrationsFor(checkAfterDays).entrySet()) {
                     int day = entry.getKey();
                     double serumConcentration = entry.getValue();

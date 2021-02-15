@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
  * Created by Giovanni on 2/14/2021
@@ -71,6 +72,38 @@ public class Modulator {
         this.doseMap.put(dose.getApplianceDay(), dose);
         return this;
     }
+
+    /**
+     * Adds a persistent amount of mg throughout a certain amount of days
+     * to this modulator.
+     *
+     * @param days The amount of days.
+     * @param mg   The concentration.
+     */
+    public Modulator addDosePersistent(int days, double mg) {
+        for (int i = 0; i < days + 1; i++) {
+            if (i == 0) continue;
+            addDose(i, mg);
+        }
+        return this;
+    }
+
+    /**
+     * Adds a weekly {@link Dose} to the modulator.
+     *
+     * @param week The week number.
+     * @param mg   The dose per day in this week.
+     */
+    public Modulator addWeeklyDose(int week, double mg) {
+        int totalDays = week * 7;
+        int daysStart = totalDays - 6;
+        for (int i = daysStart; i < totalDays + 1; i++) {
+            if(i == 0) continue;
+            addDose(i, mg);
+        }
+        return this;
+    }
+
 
     public Modulator addDose(int applianceDay, double concentrationMg) {
         this.doseMap.put(applianceDay, new Dose(this, applianceDay, concentrationMg));
