@@ -18,7 +18,7 @@ public class Bootstrap {
     public static void main(String[] args) {
         double halfLifeHrs = 60; // Half-life in hours of the medicine or drug
         int checkAfterDays = 26; // Amount of days to get serum concentration results for.
-        PanelType panelType = PanelType.DAILY_CONCENTRATIONS; // Type of panel.
+        PanelType panelType = PanelType.PEAK_AND_ELIMINATION; // Type of panel.
 
         if (halfLifeHrs <= 0) {
             System.err.println("Half-life can't be less than 0.");
@@ -63,6 +63,8 @@ public class Bootstrap {
                 String peak = "[     SERUM CONCENTRATION LEVELS PANEL   ]" + "\nPanel type: " + "PEAK AND ELIMINATION DAY" +
                         "\nPeak day: " + peakConcentration.getDay() +
                         "\n   - Concentration: " + peakConcentration.getMg() + "mg" +
+                        "\nElimination day: " + modulator.getTotalEliminationDay() +
+                        "\n   - Concentration: 0.0 mg" +
                         "\n[                                        ]";
                 System.out.println(peak);
                 break;
