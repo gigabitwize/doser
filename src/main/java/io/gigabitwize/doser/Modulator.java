@@ -1,12 +1,9 @@
 package io.gigabitwize.doser;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.IntStream;
+import java.util.*;
 
 /**
  * Created by Giovanni on 2/14/2021
@@ -98,8 +95,30 @@ public class Modulator {
         int totalDays = week * 7;
         int daysStart = totalDays - 6;
         for (int i = daysStart; i < totalDays + 1; i++) {
-            if(i == 0) continue;
+            if (i == 0) continue;
             addDose(i, mg);
+        }
+        return this;
+    }
+
+    /**
+     * Adds a {@link Dose} to the modulator, at specific days in a specific week.
+     *
+     * @param week The week.
+     * @param mg   The mg of the dose.
+     * @param days The days the dose gets applied.
+     */
+    public Modulator addWeeklyDoseAt(int week, double mg, Day... days) {
+        List<Integer> daysApplicable = Lists.newArrayList();
+        int totalDays = week * 7;
+        int daysStart = totalDays - 6;
+        for (int i = daysStart; i < totalDays + 1; i++) {
+            if (i == 0) continue;
+            daysApplicable.add(i);
+        }
+
+        for (Day day : days) {
+            addDose(daysApplicable.get(day.getIndex()), mg);
         }
         return this;
     }

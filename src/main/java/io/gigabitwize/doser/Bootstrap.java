@@ -16,9 +16,9 @@ import java.util.Map;
 public class Bootstrap {
 
     public static void main(String[] args) {
-        double halfLifeHrs = 60; // Half-life in hours of the medicine or drug
-        int checkAfterDays = 70; // Amount of days to get serum concentration results for.
-        PanelType panelType = PanelType.DAILY_CONCENTRATIONS; // Type of panel.
+        double halfLifeHrs = 8 * 24; // Half-life in hours of the medicine or drug
+        int checkAfterDays = 123; // Amount of days to get serum concentration results for.
+        PanelType panelType = PanelType.PEAK_AND_ELIMINATION; // Type of panel.
 
         if (halfLifeHrs <= 0) {
             System.err.println("Half-life can't be less than 0.");
@@ -32,14 +32,18 @@ public class Bootstrap {
 
         // Dosing is setup here.
         Modulator modulator = new Modulator(halfLifeHrs)
-                .addWeeklyDose(1, 10)
-                .addWeeklyDose(2, 10)
-                .addWeeklyDose(3, 10)
-                .addWeeklyDose(4, 10)
-                .addWeeklyDose(5, 15)
-                .addWeeklyDose(6, 15)
-                .addWeeklyDose(7, 15)
-                .addWeeklyDose(8, 15);
+                .addWeeklyDoseAt(1, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(2, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(3, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(4, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(5, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(6, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(7, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(8, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(9, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(10, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(11, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY)
+                .addWeeklyDoseAt(12, 200, Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY);
 
         switch (panelType) {
             case DAILY_CONCENTRATIONS:
